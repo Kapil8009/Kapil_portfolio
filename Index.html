@@ -1,0 +1,597 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --accent: #1D9E75;
+  --accent2: #0F6E56;
+  --bg: #F1EFE8;
+  --surface: #fff;
+  --text: #2C2C2A;
+  --muted: #5F5E5A;
+  --border: rgba(0,0,0,0.1);
+  --mono: 'Space Mono', monospace;
+  --sans: 'DM Sans', sans-serif;
+}
+
+body { font-family: var(--sans); background: var(--bg); color: var(--text); }
+
+.port-wrap { max-width: 860px; margin: 0 auto; padding: 2rem 1rem 4rem; }
+
+/* Hero */
+.hero {
+  display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 2rem;
+  background: var(--surface); border-radius: 16px; border: 0.5px solid var(--border);
+  padding: 2.5rem; margin-bottom: 1.5rem; position: relative; overflow: hidden;
+  animation: fadeUp 0.6s ease both;
+}
+.hero::before {
+  content: ''; position: absolute; top: -40px; right: -40px;
+  width: 200px; height: 200px; border-radius: 50%;
+  background: #E1F5EE; z-index: 0;
+}
+.hero-content { position: relative; z-index: 1; }
+.hero-name { font-family: var(--mono); font-size: 2.2rem; font-weight: 700; color: var(--text); line-height: 1.1; }
+.hero-title { font-size: 1rem; color: var(--accent2); font-weight: 500; margin: 0.5rem 0 1rem; letter-spacing: 0.02em; }
+.hero-links { display: flex; flex-wrap: wrap; gap: 8px; }
+.hero-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; font-family: var(--mono); color: var(--muted);
+  background: var(--bg); border: 0.5px solid var(--border);
+  border-radius: 6px; padding: 5px 10px; text-decoration: none;
+  transition: all 0.2s; cursor: pointer;
+}
+.hero-link:hover { background: #E1F5EE; color: var(--accent2); border-color: var(--accent); }
+.hero-badge {
+  width: 88px; height: 88px; border-radius: 50%; background: linear-gradient(135deg,#1D9E75,#085041);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: 1.8rem; color: #fff; font-weight: 700;
+  position: relative; z-index: 1; flex-shrink: 0;
+  animation: pulse 3s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{box-shadow:0 0 0 0 rgba(29,158,117,0.3)} 50%{box-shadow:0 0 0 12px rgba(29,158,117,0)} }
+
+/* Nav Pills */
+.nav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1.5rem; animation: fadeUp 0.6s 0.1s ease both; }
+.nav-btn {
+  font-family: var(--mono); font-size: 11px; padding: 7px 14px;
+  border-radius: 20px; border: 0.5px solid var(--border);
+  background: var(--surface); cursor: pointer; color: var(--muted);
+  transition: all 0.2s; letter-spacing: 0.03em;
+}
+.nav-btn.active, .nav-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+/* Sections */
+.section { display: none; animation: fadeUp 0.4s ease both; }
+.section.active { display: block; }
+
+/* Section title */
+.sec-title {
+  font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.12em;
+  color: var(--accent); text-transform: uppercase; margin-bottom: 1rem;
+  display: flex; align-items: center; gap: 8px;
+}
+.sec-title::after { content:''; flex:1; height:0.5px; background: var(--border); }
+
+/* Cards */
+.card {
+  background: var(--surface); border-radius: 12px; border: 0.5px solid var(--border);
+  padding: 1.25rem; margin-bottom: 1rem; transition: transform 0.2s, box-shadow 0.2s;
+}
+.card:hover { transform: translateY(-2px); }
+.card-title { font-size: 1rem; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+.card-sub { font-size: 13px; color: var(--muted); margin-bottom: 8px; font-family: var(--mono); }
+.card-body { font-size: 13px; color: var(--muted); line-height: 1.7; }
+.tag {
+  display: inline-block; font-size: 11px; font-family: var(--mono);
+  background: #E1F5EE; color: #085041; padding: 3px 8px;
+  border-radius: 4px; margin: 3px 3px 0 0;
+}
+.tag.java { background: #FAECE7; color: #993C1D; }
+.tag.ml { background: #EEEDFE; color: #3C3489; }
+.tag.data { background: #E6F1FB; color: #185FA5; }
+
+/* Skills grid */
+.skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+.skill-card {
+  background: var(--surface); border: 0.5px solid var(--border); border-radius: 12px;
+  padding: 1rem; cursor: pointer; transition: all 0.2s; position: relative; overflow: hidden;
+}
+.skill-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.skill-card.has-cert { cursor: pointer; }
+.skill-icon { font-size: 22px; margin-bottom: 8px; }
+.skill-name { font-size: 13px; font-weight: 500; color: var(--text); }
+.skill-level { font-size: 11px; color: var(--muted); font-family: var(--mono); margin-top: 2px; }
+.cert-badge {
+  position: absolute; top: 8px; right: 8px;
+  background: #E1F5EE; color: #085041; font-size: 10px;
+  font-family: var(--mono); padding: 2px 6px; border-radius: 10px; border: 0.5px solid #5DCAA5;
+}
+.skill-bar { height: 3px; background: var(--bg); border-radius: 2px; margin-top: 10px; overflow: hidden; }
+.skill-bar-fill { height: 100%; background: var(--accent); border-radius: 2px; width: 0; transition: width 1s ease; }
+
+/* Certs */
+.certs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
+.cert-card {
+  background: var(--surface); border: 0.5px solid var(--border); border-radius: 12px;
+  padding: 1.1rem; text-decoration: none; color: inherit;
+  transition: all 0.2s; display: block;
+}
+.cert-card:hover { border-color: var(--accent); transform: translateY(-2px); background: #FBFFFD; }
+.cert-icon { font-size: 20px; margin-bottom: 8px; }
+.cert-name { font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.4; margin-bottom: 4px; }
+.cert-issuer { font-size: 11px; color: var(--muted); font-family: var(--mono); }
+.cert-link-label {
+  display: inline-flex; align-items: center; gap: 4px; margin-top: 8px;
+  font-size: 11px; color: var(--accent); font-family: var(--mono);
+}
+
+/* Research */
+.research-card {
+  background: linear-gradient(135deg, #E1F5EE 0%, #EEEDFE 100%);
+  border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem;
+  border: 0.5px solid #9FE1CB; position: relative; overflow: hidden;
+}
+.patent-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: #1D9E75; color: #fff; font-size: 11px; font-family: var(--mono);
+  padding: 4px 10px; border-radius: 20px; margin-bottom: 10px;
+}
+
+/* Timeline */
+.timeline { position: relative; padding-left: 24px; }
+.timeline::before { content:''; position:absolute; left:7px; top:0; bottom:0; width:1px; background: var(--border); }
+.tl-item { position: relative; margin-bottom: 1.5rem; }
+.tl-dot {
+  position: absolute; left: -24px; top: 4px;
+  width: 14px; height: 14px; border-radius: 50%;
+  background: var(--accent); border: 2px solid var(--surface);
+  box-shadow: 0 0 0 2px var(--accent);
+}
+
+/* Stats row */
+.stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 1rem; margin-bottom: 1.5rem; }
+.stat-box {
+  background: var(--surface); border: 0.5px solid var(--border); border-radius: 10px;
+  padding: 1rem; text-align: center;
+}
+.stat-num { font-family: var(--mono); font-size: 1.5rem; font-weight: 700; color: var(--accent); }
+.stat-lbl { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+/* Modal */
+.modal-overlay {
+  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+  z-index: 1000; align-items: center; justify-content: center;
+  min-height: 100vh;
+}
+.modal-overlay.open { display: flex; }
+.modal-box {
+  background: var(--surface); border-radius: 16px; padding: 2rem;
+  max-width: 480px; width: 90%; border: 0.5px solid var(--border);
+  animation: fadeUp 0.3s ease;
+}
+.modal-title { font-family: var(--mono); font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+.modal-body { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 1rem; }
+.modal-cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--accent); color: #fff; text-decoration: none;
+  padding: 10px 20px; border-radius: 8px; font-size: 13px; font-family: var(--mono);
+  transition: background 0.2s;
+}
+.modal-cta:hover { background: var(--accent2); }
+.modal-close {
+  float: right; background: none; border: none; font-size: 18px;
+  cursor: pointer; color: var(--muted); margin-bottom: 1rem;
+}
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+
+.proj-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+@media(max-width:600px){
+  .proj-grid{grid-template-columns:1fr}
+  .stats{grid-template-columns:1fr 1fr}
+  .hero{grid-template-columns:1fr}
+  .hero-badge{display:none}
+  .skills-grid{grid-template-columns:1fr 1fr}
+}
+
+/* SVG icons inline */
+.ico { display: inline-block; width: 14px; height: 14px; vertical-align: middle; }
+</style>
+
+<div class="port-wrap">
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-content">
+    <div class="hero-name">Kapil</div>
+    <div class="hero-title">Full Stack Java Developer &amp; ML Engineer</div>
+    <div style="font-size:13px;color:var(--muted);margin-bottom:1rem;line-height:1.6;">
+      1+ yr experience · Patent holder · 100+ students trained · Chandigarh University
+    </div>
+    <div class="hero-links">
+      <a class="hero-link" href="mailto:kapil.katiyar.8017@gmail.com">
+        <svg class="ico" viewBox="0 0 16 16"><path fill="currentColor" d="M1 3h14v10H1zm7 5.5L2 5v-.5l6 4 6-4V5z"/></svg> Email
+      </a>
+      <a class="hero-link" href="https://linkedin.com/in/kapil8009" target="_blank">
+        <svg class="ico" viewBox="0 0 16 16"><rect fill="currentColor" x="1" y="1" width="5" height="5" rx="1"/><rect fill="currentColor" x="1" y="8" width="5" height="7" rx="1"/><path fill="currentColor" d="M8 8h2.5v1.2A3 3 0 0 1 15 11.5V15h-2v-3a1.5 1.5 0 0 0-3 0v3H8z"/></svg> LinkedIn
+      </a>
+      <a class="hero-link" href="https://github.com/Kapil8009" target="_blank">
+        <svg class="ico" viewBox="0 0 16 16"><path fill="currentColor" d="M8 .5a8 8 0 0 0-2.53 15.59c.4.07.55-.17.55-.38v-1.33C3.73 14.9 3.26 13.4 3.26 13.4c-.36-.91-.88-1.16-.88-1.16-.72-.49.05-.48.05-.48.8.06 1.22.82 1.22.82.71 1.21 1.87.86 2.33.66.07-.52.28-.86.5-1.06-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.65 7.65 0 0 1 4 0c1.53-1.03 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.19c0 .21.14.46.55.38A8 8 0 0 0 8 .5z"/></svg> GitHub
+      </a>
+      <a class="hero-link" href="https://www.kaggle.com" target="_blank">
+        <svg class="ico" viewBox="0 0 16 16"><circle fill="currentColor" cx="8" cy="8" r="7"/><text x="4" y="12" fill="#fff" font-size="8" font-weight="700">K</text></svg> Kaggle
+      </a>
+      <span style="font-size:12px;color:var(--muted);font-family:var(--mono);align-self:center;">+91-7379778017</span>
+    </div>
+  </div>
+  <div class="hero-badge">KK</div>
+</div>
+
+<!-- Stats -->
+<div class="stats">
+  <div class="stat-box"><div class="stat-num">1+</div><div class="stat-lbl">Years exp</div></div>
+  <div class="stat-box"><div class="stat-num">100+</div><div class="stat-lbl">Students trained</div></div>
+  <div class="stat-box"><div class="stat-num">1</div><div class="stat-lbl">Granted patent</div></div>
+  <div class="stat-box"><div class="stat-num">8+</div><div class="stat-lbl">Projects built</div></div>
+</div>
+
+<!-- Nav -->
+<div class="nav">
+  <button class="nav-btn active" onclick="showSection('about')">About</button>
+  <button class="nav-btn" onclick="showSection('experience')">Experience</button>
+  <button class="nav-btn" onclick="showSection('projects')">Projects</button>
+  <button class="nav-btn" onclick="showSection('skills')">Skills</button>
+  <button class="nav-btn" onclick="showSection('certs')">Certificates</button>
+  <button class="nav-btn" onclick="showSection('research')">Research</button>
+</div>
+
+<!-- About -->
+<div id="sec-about" class="section active">
+  <div class="sec-title">Professional Summary</div>
+  <div class="card">
+    <div class="card-body">
+      Full Stack Java Developer and Machine Learning Engineer with a granted patent in AI-driven cybersecurity and published datasets on Kaggle. Currently delivering technical training to 100+ undergraduate students at Chandigarh University. Strong foundation in OOP, MVC architecture, and Agile development.
+    </div>
+    <div style="margin-top:1rem;">
+      <div class="sec-title">Education</div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="card-title">M.Tech in Computer Science</div>
+          <div class="card-sub">Sri Satya Sai Technical University, Bhopal · 2024–Present · CGPA 7.0</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="card-title">B.Tech in Information Technology</div>
+          <div class="card-sub">Dr. A.P.J. Abdul Kalam Technical University, UP · 2020–2024 · CGPA 7.4</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="card-title">Senior Secondary (Class XII)</div>
+          <div class="card-sub">UP State Board · 2020 · 66.8%</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="card-title">Secondary (Class X)</div>
+          <div class="card-sub">UP State Board · 2018 · 83.9%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Experience -->
+<div id="sec-experience" class="section">
+  <div class="sec-title">Work Experience</div>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="card">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+          <div class="card-title">Technical Trainer</div>
+          <span class="tag" style="background:#E1F5EE;color:#085041;">Jan 2025 – Present</span>
+        </div>
+        <div class="card-sub">Chandigarh University, Chandigarh</div>
+        <div class="card-body">
+          • Instructing 100+ undergrads in Full Stack Java, React.js, Spring Boot, and web application development.<br>
+          • Developing and maintaining structured curriculum on React, Spring Boot, algorithms, and software engineering best practices.<br>
+          • Guiding students through capstone projects integrating RESTful APIs, relational databases, and ML pipelines.
+        </div>
+        <div style="margin-top:10px;">
+          <span class="tag">React.js</span><span class="tag java">Spring Boot</span><span class="tag">Java</span><span class="tag data">Curriculum Design</span>
+        </div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="card">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+          <div class="card-title">Java Development Trainee</div>
+          <span class="tag" style="background:#FAECE7;color:#993C1D;">Feb – Jul 2024</span>
+        </div>
+        <div class="card-sub">Ducat Institute of IT, Delhi</div>
+        <div class="card-body">
+          • 6-month intensive training in Core Java, Spring Boot, and JDBC under industry mentors.<br>
+          • Engineered full-stack web applications using Java Servlet, JSP, Hibernate ORM, and MySQL with MVC architecture.<br>
+          • Practiced Agile workflows and version control with Git.
+        </div>
+        <div style="margin-top:10px;">
+          <span class="tag java">Core Java</span><span class="tag java">Hibernate ORM</span><span class="tag java">JSP</span><span class="tag">MySQL</span><span class="tag">Git</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Projects -->
+<div id="sec-projects" class="section">
+  <div class="sec-title">Projects</div>
+  <div class="proj-grid">
+    <div class="card" onclick="openModal('emotion')">
+      <div style="font-size:22px;margin-bottom:8px;">🧠</div>
+      <div class="card-title">Emotion Recognition System</div>
+      <div class="card-sub">May 2025</div>
+      <div class="card-body">Real-time CNN-based deep learning classifying 7 emotions from webcam with Tkinter GUI.</div>
+      <div style="margin-top:10px;"><span class="tag ml">TensorFlow</span><span class="tag ml">CNN</span><span class="tag">OpenCV</span></div>
+    </div>
+    <div class="card" onclick="openModal('liver')">
+      <div style="font-size:22px;margin-bottom:8px;">🩺</div>
+      <div class="card-title">Liver Disease Classifier</div>
+      <div class="card-sub">Nov 2024</div>
+      <div class="card-body">95.2% accuracy using Random Forest + SMOTE oversampling across 5 clinical risk categories.</div>
+      <div style="margin-top:10px;"><span class="tag ml">Scikit-learn</span><span class="tag ml">SMOTE</span><span class="tag">GridSearchCV</span></div>
+    </div>
+    <div class="card" onclick="openModal('ipl')">
+      <div style="font-size:22px;margin-bottom:8px;">🏏</div>
+      <div class="card-title">IPL Data Analysis</div>
+      <div class="card-sub">Feb 2025</div>
+      <div class="card-body">10+ seasons of IPL records analyzed, 15+ visualizations published on Kaggle.</div>
+      <div style="margin-top:10px;"><span class="tag data">Pandas</span><span class="tag data">Seaborn</span><span class="tag data">Kaggle</span></div>
+    </div>
+    <div class="card" onclick="openModal('ecommerce')">
+      <div style="font-size:22px;margin-bottom:8px;">🛒</div>
+      <div class="card-title">E-Commerce Web App</div>
+      <div class="card-sub">Jul 2024</div>
+      <div class="card-body">Production-ready e-commerce with Cart, Checkout, JWT authentication, normalized MySQL catalog.</div>
+      <div style="margin-top:10px;"><span class="tag java">Spring Boot</span><span class="tag java">Hibernate</span><span class="tag">JWT</span></div>
+    </div>
+    <div class="card" onclick="openModal('hotel')">
+      <div style="font-size:22px;margin-bottom:8px;">🏨</div>
+      <div class="card-title">Hotel Booking System</div>
+      <div class="card-sub">Mar 2024</div>
+      <div class="card-body">Multi-room hotel management with real-time availability and RESTful backend.</div>
+      <div style="margin-top:10px;"><span class="tag java">JSP</span><span class="tag java">Servlet</span><span class="tag">MySQL</span></div>
+    </div>
+    <div class="card" onclick="openModal('zomato')">
+      <div style="font-size:22px;margin-bottom:8px;">🍽️</div>
+      <div class="card-title">Restaurant Preference Analysis</div>
+      <div class="card-sub">Aug 2024</div>
+      <div class="card-body">Mined Zomato dataset for customer behavior, cuisine preferences, and pricing insights.</div>
+      <div style="margin-top:10px;"><span class="tag data">Pandas</span><span class="tag data">Matplotlib</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- Skills -->
+<div id="sec-skills" class="section">
+  <div class="sec-title">Technical Skills</div>
+  <div class="skills-grid" id="skills-grid"></div>
+</div>
+
+<!-- Certificates -->
+<div id="sec-certs" class="section">
+  <div class="sec-title">Certifications</div>
+  <div class="certs-grid">
+    <a class="cert-card" href="https://drive.google.com/file/d/1Zi-ODwYR_D_u699S14Yv6lyCCShYv43U/view?usp=sharing" target="_blank">
+      <div class="cert-icon">📄</div>
+      <div class="cert-name">Research Paper Publication</div>
+      <div class="cert-issuer">Peer-reviewed · Liver Disease AI</div>
+      <div class="cert-link-label">
+        <svg width="12" height="12" viewBox="0 0 12 12"><path fill="currentColor" d="M2 2h4v1H3v6h6V7h1v2H2zm5 0h3v3h-1V3.7L5.35 7.35l-.7-.7L8.3 3H6z"/></svg>
+        View Certificate
+      </div>
+    </a>
+    <a class="cert-card" href="https://drive.google.com/file/d/1STOa5JAXyOqIaJOslFHGoTWgID3B2x47/view?usp=sharing" target="_blank">
+      <div class="cert-icon">⚡</div>
+      <div class="cert-name">Advanced JavaScript</div>
+      <div class="cert-issuer">LearnVern</div>
+      <div class="cert-link-label"><svg width="12" height="12" viewBox="0 0 12 12"><path fill="currentColor" d="M2 2h4v1H3v6h6V7h1v2H2zm5 0h3v3h-1V3.7L5.35 7.35l-.7-.7L8.3 3H6z"/></svg> View Certificate</div>
+    </a>
+    <a class="cert-card" href="https://drive.google.com/file/d/1G0zwXc0RRMSmAvvh9y35-SPXgbYRDdBe/view?usp=sharing" target="_blank">
+      <div class="cert-icon">🤖</div>
+      <div class="cert-name">Machine Learning Specialization</div>
+      <div class="cert-issuer">Coursera · Stanford / DeepLearning.AI</div>
+      <div class="cert-link-label"><svg width="12" height="12" viewBox="0 0 12 12"><path fill="currentColor" d="M2 2h4v1H3v6h6V7h1v2H2zm5 0h3v3h-1V3.7L5.35 7.35l-.7-.7L8.3 3H6z"/></svg> View Certificate</div>
+    </a>
+    <a class="cert-card" href="https://drive.google.com/file/d/1TAG1hmrowsxidm1Eu-bCuM5WICVnqCl4/view?usp=sharing" target="_blank">
+      <div class="cert-icon">⚛️</div>
+      <div class="cert-name">Advanced React</div>
+      <div class="cert-issuer">Scrimba</div>
+      <div class="cert-link-label"><svg width="12" height="12" viewBox="0 0 12 12"><path fill="currentColor" d="M2 2h4v1H3v6h6V7h1v2H2zm5 0h3v3h-1V3.7L5.35 7.35l-.7-.7L8.3 3H6z"/></svg> View Certificate</div>
+    </a>
+    <a class="cert-card" href="https://drive.google.com/file/d/16fDrG4XP2_eqak58LXTcPVrawf-jISIK/view?usp=sharing" target="_blank">
+      <div class="cert-icon">📊</div>
+      <div class="cert-name">Data Analytics Professional</div>
+      <div class="cert-issuer">Coursera · Google</div>
+      <div class="cert-link-label"><svg width="12" height="12" viewBox="0 0 12 12"><path fill="currentColor" d="M2 2h4v1H3v6h6V7h1v2H2zm5 0h3v3h-1V3.7L5.35 7.35l-.7-.7L8.3 3H6z"/></svg> View Certificate</div>
+    </a>
+    <a class="cert-card" href="https://drive.google.com/file/d/1xSsH3c7RsBUSPbOX-IMI7Uwl83ezR2VM/view?usp=sharing" target="_blank">
+      <div class="cert-icon">🧬</div>
+      <div class="cert-name">Machine Learning (2)</div>
+      <div class="cert-issuer">Coursera · Stanford</div>
+      <div class="cert-link-label"><svg width="12" height="12" viewBox="0 0 12 12"><path fill="currentColor" d="M2 2h4v1H3v6h6V7h1v2H2zm5 0h3v3h-1V3.7L5.35 7.35l-.7-.7L8.3 3H6z"/></svg> View Certificate</div>
+    </a>
+    <a class="cert-card" href="https://drive.google.com/file/d/1d9Qq94Nynncr6YKd7cSRY8O1mkLeQ93B/view?usp=sharing" target="_blank">
+      <div class="cert-icon">🔬</div>
+      <div class="cert-name">Machine Learning (3)</div>
+      <div class="cert-issuer">DeepLearning.AI</div>
+      <div class="cert-link-label"><svg width="12" height="12" viewBox="0 0 12 12"><path fill="currentColor" d="M2 2h4v1H3v6h6V7h1v2H2zm5 0h3v3h-1V3.7L5.35 7.35l-.7-.7L8.3 3H6z"/></svg> View Certificate</div>
+    </a>
+    <a class="cert-card" href="https://drive.google.com/file/d/1dJu1pf3AX4-W5qE6lBf2hRSLprmJIF4Y/view?usp=sharing" target="_blank">
+      <div class="cert-icon">💡</div>
+      <div class="cert-name">Machine Learning (4)</div>
+      <div class="cert-issuer">DeepLearning.AI</div>
+      <div class="cert-link-label"><svg width="12" height="12" viewBox="0 0 12 12"><path fill="currentColor" d="M2 2h4v1H3v6h6V7h1v2H2zm5 0h3v3h-1V3.7L5.35 7.35l-.7-.7L8.3 3H6z"/></svg> View Certificate</div>
+    </a>
+    <a class="cert-card" href="https://drive.google.com/file/d/16lSirAMDAOXlqwCpEQB4qmMdeAU_C-1Q/view?usp=sharing" target="_blank">
+      <div class="cert-icon">🌐</div>
+      <div class="cert-name">HTML Fundamentals</div>
+      <div class="cert-issuer">LearnVern</div>
+      <div class="cert-link-label"><svg width="12" height="12" viewBox="0 0 12 12"><path fill="currentColor" d="M2 2h4v1H3v6h6V7h1v2H2zm5 0h3v3h-1V3.7L5.35 7.35l-.7-.7L8.3 3H6z"/></svg> View Certificate</div>
+    </a>
+    <a class="cert-card" href="https://drive.google.com/file/d/1RGNeat1j8g9T-NsqHwXokjWJb9LJHbh9/view?usp=sharing" target="_blank">
+      <div class="cert-icon">🐍</div>
+      <div class="cert-name">Python Programming</div>
+      <div class="cert-issuer">PrepInsta</div>
+      <div class="cert-link-label"><svg width="12" height="12" viewBox="0 0 12 12"><path fill="currentColor" d="M2 2h4v1H3v6h6V7h1v2H2zm5 0h3v3h-1V3.7L5.35 7.35l-.7-.7L8.3 3H6z"/></svg> View Certificate</div>
+    </a>
+    <a class="cert-card" href="https://drive.google.com/file/d/1zWoMRUrUYDqhcqPEpSx6lnprxm7gVCrE/view?usp=sharing" target="_blank">
+      <div class="cert-icon">🏗️</div>
+      <div class="cert-name">Full Stack Web Development</div>
+      <div class="cert-issuer">Scrimba</div>
+      <div class="cert-link-label"><svg width="12" height="12" viewBox="0 0 12 12"><path fill="currentColor" d="M2 2h4v1H3v6h6V7h1v2H2zm5 0h3v3h-1V3.7L5.35 7.35l-.7-.7L8.3 3H6z"/></svg> View Certificate</div>
+    </a>
+    <a class="cert-card" href="https://drive.google.com/file/d/1si-JD6qI4_aZrjnSwJJdxovnb-7Ck20m/view?usp=sharing" target="_blank">
+      <div class="cert-icon">☕</div>
+      <div class="cert-name">Full Stack Java Development</div>
+      <div class="cert-issuer">Ducat Institute of IT</div>
+      <div class="cert-link-label"><svg width="12" height="12" viewBox="0 0 12 12"><path fill="currentColor" d="M2 2h4v1H3v6h6V7h1v2H2zm5 0h3v3h-1V3.7L5.35 7.35l-.7-.7L8.3 3H6z"/></svg> View Certificate</div>
+    </a>
+  </div>
+</div>
+
+<!-- Research -->
+<div id="sec-research" class="section">
+  <div class="sec-title">Research &amp; Patents</div>
+  <div class="research-card">
+    <div class="patent-badge">
+      <svg width="12" height="12" viewBox="0 0 12 12"><circle fill="currentColor" cx="6" cy="6" r="5"/><text x="3.5" y="9" fill="#1D9E75" font-size="7" font-weight="700">P</text></svg>
+      GRANTED PATENT
+    </div>
+    <div class="card-title" style="font-size:1rem;margin-bottom:6px;">Patent No. 202511039675</div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:10px;">
+      AI-Driven Cybersecurity Framework for Automated Threat Detection and Mitigation (May 2025). Designed and patented a machine learning pipeline for real-time anomaly detection and automated threat mitigation in networked systems.
+    </div>
+    <span class="tag ml">Machine Learning</span><span class="tag">Cybersecurity</span><span class="tag">Anomaly Detection</span>
+  </div>
+  <div class="card">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+      <div style="background:#E1F5EE;color:#085041;font-size:11px;font-family:var(--mono);padding:3px 10px;border-radius:10px;border:0.5px solid #5DCAA5;">PEER-REVIEWED</div>
+    </div>
+    <div class="card-title">ML Framework for Liver Disease Assessment</div>
+    <div class="card-sub">Co-authored · November 2024</div>
+    <div class="card-body">
+      Robust Machine Learning Framework using Random Forest and SMOTE achieving 95.2% diagnostic accuracy across five disease severity levels. Supporting AI-assisted diagnostic decision-making.
+    </div>
+    <div style="margin-top:10px;">
+      <span class="tag ml">Random Forest</span><span class="tag ml">SMOTE</span><span class="tag data">95.2% Accuracy</span>
+    </div>
+    <a class="modal-cta" href="https://drive.google.com/file/d/1Zi-ODwYR_D_u699S14Yv6lyCCShYv43U/view?usp=sharing" target="_blank" style="display:inline-flex;margin-top:12px;font-size:12px;padding:8px 14px;">
+      <svg width="14" height="14" viewBox="0 0 12 12"><path fill="currentColor" d="M2 2h4v1H3v6h6V7h1v2H2zm5 0h3v3h-1V3.7L5.35 7.35l-.7-.7L8.3 3H6z"/></svg>
+      View Research Paper
+    </a>
+  </div>
+</div>
+
+</div>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-title" id="modal-title"></div>
+    <div class="modal-body" id="modal-body"></div>
+    <div id="modal-tags"></div>
+  </div>
+</div>
+
+<script>
+const projects = {
+  emotion: {
+    title: 'Emotion Recognition System',
+    body: 'Engineered a real-time CNN-based deep learning system classifying 7 human emotions from live webcam input. Reduced inference latency by integrating optimized OpenCV preprocessing with TensorFlow model serving. Designed an interactive Tkinter GUI displaying per-emotion probability scores for end-user interpretability.',
+    tags: ['TensorFlow','OpenCV','CNN','Tkinter','Deep Learning']
+  },
+  liver: {
+    title: 'Liver Disease Risk Classifier',
+    body: 'Achieved 95.2% classification accuracy using a Random Forest model tuned via GridSearchCV. Applied SMOTE oversampling to resolve class imbalance across five clinical liver disease risk categories. Contributed to peer-reviewed research publication supporting AI-assisted diagnostic decision-making.',
+    tags: ['Python','Scikit-learn','Random Forest','SMOTE','GridSearchCV']
+  },
+  ipl: {
+    title: 'IPL Match Data Analysis',
+    body: 'Processed and analyzed 10+ seasons of IPL match records to surface team performance trends and player statistics. Produced 15+ visualizations on win patterns and match outcomes; published cleaned dataset on Kaggle.',
+    tags: ['Python','NumPy','Pandas','Seaborn','Kaggle']
+  },
+  ecommerce: {
+    title: 'E-Commerce Web Application',
+    body: 'Built a production-ready e-commerce platform with Add to Cart, Saved Products, and Checkout functionality. Implemented JWT-based user authentication, session management, and a normalized MySQL product catalog.',
+    tags: ['Spring Boot','Hibernate','Java Servlet','MySQL','JWT']
+  },
+  hotel: {
+    title: 'Hotel Booking System',
+    body: 'Constructed a multi-room hotel management system with real-time availability tracking and booking workflows. Architected a RESTful backend using JSP and a relational MySQL schema supporting concurrent reservations.',
+    tags: ['Java Servlet','JSP','MySQL','REST API']
+  },
+  zomato: {
+    title: 'Restaurant Preference Analysis',
+    body: 'Mined Zomato dataset to uncover customer ordering behavior, cuisine preferences, and pricing elasticity. Translated statistical findings into business recommendations via clear, publication-ready visualizations.',
+    tags: ['Python','Pandas','Matplotlib','Seaborn']
+  }
+};
+
+function openModal(id) {
+  const p = projects[id];
+  document.getElementById('modal-title').textContent = p.title;
+  document.getElementById('modal-body').textContent = p.body;
+  document.getElementById('modal-tags').innerHTML = p.tags.map(t=>`<span class="tag">${t}</span>`).join('');
+  document.getElementById('modal').classList.add('open');
+}
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+}
+
+function showSection(name) {
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('sec-'+name).classList.add('active');
+  event.target.classList.add('active');
+  if(name==='skills') initSkills();
+}
+
+const skillsData = [
+  {icon:'☕',name:'Java',level:'Core + Spring Boot',pct:90,cert:'https://drive.google.com/file/d/1si-JD6qI4_aZrjnSwJJdxovnb-7Ck20m/view?usp=sharing',tag:'java'},
+  {icon:'🐍',name:'Python',level:'ML + Data Science',pct:88,cert:'https://drive.google.com/file/d/1RGNeat1j8g9T-NsqHwXokjWJb9LJHbh9/view?usp=sharing',tag:'ml'},
+  {icon:'⚛️',name:'React.js',level:'Advanced',pct:82,cert:'https://drive.google.com/file/d/1TAG1hmrowsxidm1Eu-bCuM5WICVnqCl4/view?usp=sharing',tag:''},
+  {icon:'⚡',name:'JavaScript',level:'Advanced',pct:80,cert:'https://drive.google.com/file/d/1STOa5JAXyOqIaJOslFHGoTWgID3B2x47/view?usp=sharing',tag:''},
+  {icon:'🤖',name:'TensorFlow',level:'Deep Learning',pct:78,cert:'https://drive.google.com/file/d/1G0zwXc0RRMSmAvvh9y35-SPXgbYRDdBe/view?usp=sharing',tag:'ml'},
+  {icon:'📊',name:'Data Analytics',level:'Google Certified',pct:85,cert:'https://drive.google.com/file/d/16fDrG4XP2_eqak58LXTcPVrawf-jISIK/view?usp=sharing',tag:'data'},
+  {icon:'🗄️',name:'MySQL',level:'JDBC + ORM',pct:84,cert:null,tag:''},
+  {icon:'🏗️',name:'Spring Boot',level:'Full Stack',pct:86,cert:'https://drive.google.com/file/d/1zWoMRUrUYDqhcqPEpSx6lnprxm7gVCrE/view?usp=sharing',tag:'java'},
+  {icon:'👁️',name:'OpenCV',level:'Computer Vision',pct:72,cert:null,tag:'ml'},
+  {icon:'🌐',name:'HTML/CSS',level:'HTML5 + CSS3',pct:88,cert:'https://drive.google.com/file/d/16lSirAMDAOXlqwCpEQB4qmMdeAU_C-1Q/view?usp=sharing',tag:''},
+];
+
+let skillsInited = false;
+function initSkills() {
+  if(skillsInited) return;
+  skillsInited = true;
+  const grid = document.getElementById('skills-grid');
+  grid.innerHTML = skillsData.map(s=>`
+    <div class="skill-card ${s.cert?'has-cert':''}" ${s.cert?`onclick="window.open('${s.cert}','_blank')"`:''}>
+      ${s.cert?`<div class="cert-badge">📜 cert</div>`:''}
+      <div class="skill-icon">${s.icon}</div>
+      <div class="skill-name">${s.name}</div>
+      <div class="skill-level">${s.level}</div>
+      <div class="skill-bar"><div class="skill-bar-fill" data-pct="${s.pct}" style="width:0%"></div></div>
+    </div>
+  `).join('');
+  setTimeout(()=>{
+    document.querySelectorAll('.skill-bar-fill').forEach(el=>{
+      el.style.width = el.dataset.pct + '%';
+    });
+  }, 100);
+}
+</script>
